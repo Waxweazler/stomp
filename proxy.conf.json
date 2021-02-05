@@ -1,0 +1,7 @@
+{
+  "context": [
+    "/sim-statistics/**"
+  ],
+  "target": "http://localhost:8095",
+  "ws": true
+}
