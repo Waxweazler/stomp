@@ -1,8 +1,8 @@
 <div>
-    <button type="button" (click)="connect()">Connect</button>
-    <button type="button" (click)="watch()">Watch</button>
+    <button type="button" [class.active]="connected()" (click)="connect()">Connect</button>
+    <button type="button" (click)="disconnect()" *ngIf="connected()">Disconnect</button>
 </div>
 
-<div>
-    <pre>{{log}}</pre>
-</div>
+<ul>
+    <li *ngFor="let message of messageHistory">{{message}}</li>
+</ul>

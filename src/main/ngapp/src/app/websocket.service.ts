@@ -11,19 +11,29 @@ export class WebSocketService {
     constructor(private stompService: RxStompService) {
     }
 
-    connect(brokerURL): void {
-        this.stompService.configure({
-            brokerURL
+    connect(brokerURL): Promise<void> {
+        return new Promise<void>(resolve => {
+            this.stompService.configure({
+                brokerURL
+            });
+            this.stompService.activate();
+            resolve();
         });
-        this.stompService.activate();
+
     }
 
-    disconnect(): void {
-        this.stompService.deactivate();
+    disconnect(): Promise<void> {
+        return this.stompService.deactivate();
     }
 
     watch(destination: string): Observable<Message> {
-        return this.stompService.watch(destination);
+        return this.stompService.watch({
+            destination, subscribeOnlyOnce: true
+        });
+    }
+
+    connected(): boolean {
+        return this.stompService.connected();
     }
 
 }
